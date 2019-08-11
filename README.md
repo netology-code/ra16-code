@@ -7,7 +7,7 @@
 1. [ ] [Композиция компонентов](composition)
 1. [ ] [Жизненный цикл и работа с HTTP](lifecycle-http)
 1. [ ] [HOC](hoc)
-1. [ ] [hooks, Context API](hooks-context)
+1. [x] [hooks, Context API](hooks-context)
 1. [ ] [React Router](router)
 1. [ ] [Redux и Redux Thunk](redux)
 1. [ ] [Redux Observable](observable)
