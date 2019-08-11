@@ -1,0 +1,55 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { fetchServices, removeService } from '../actions/actionCreators';
+import { connect } from 'react-redux';
+
+class ServiceListClassBased extends Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.string,
+  }
+
+  componentDidMount() {
+    this.props.fetchServices();
+  }
+
+  handleRemove = id => {
+    this.props.removeService(id);
+  };
+
+  render() {
+    const { items, loading, error } = this.props;
+
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+
+    if (error) {
+      return <p>Something went wrong try again</p>;
+    }
+
+    return (
+      <ul>
+        {items.map(({ id, name, price }) => (
+          <li key={id}>
+            {`${name} ${price}`}
+            <button onClick={() => this.handleRemove(id)}>✕</button>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  const { serviceList: { items, loading, error } } = state;
+  return { items, loading, error };
+};
+
+const mapDispatchToProps = {
+  fetchServices,
+  removeService,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceListClassBased);
