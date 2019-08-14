@@ -15,13 +15,13 @@ class ServiceAddClassBased extends Component {
     onChange: PropTypes.func.isRequired,
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
+  handleChange = evt => {
+    const { name, value } = evt.target;
     this.props.onChange(name, value);
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
+  handleSubmit = evt => {
+    evt.preventDefault();
     this.props.onSave();
   }
 

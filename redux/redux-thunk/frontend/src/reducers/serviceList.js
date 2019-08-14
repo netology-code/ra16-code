@@ -38,7 +38,7 @@ export default function serviceListReducer(state = initialState, action) {
       const {id} = action.payload;
       return {
         ...state,
-        items: state.items.filter(item => item.id !== id)
+        items: state.items.filter(o => o.id !== id)
       };
     default:
       return state;

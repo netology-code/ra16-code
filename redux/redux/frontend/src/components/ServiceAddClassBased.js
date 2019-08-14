@@ -4,14 +4,14 @@ import {connect} from 'react-redux';
 import {changeServiceField, addService} from '../actions/actionCreators';
 
 class ServiceAddClassBased extends Component {
-  handleChange = event => {
-    const { name, value } = event.target;
+  handleChange = evt => {
+    const { name, value } = evt.target;
     this.props.onChange(name, value);
   }
 
-  handleSubmit = event => {
+  handleSubmit = evt => {
     const {item} = this.props;
-    event.preventDefault();
+    evt.preventDefault();
     this.props.onSave(item.name, item.price);
   }
 

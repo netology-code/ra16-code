@@ -12,10 +12,10 @@ function ServiceList() {
 
   return (
     <ul>
-      {items.map(({id, name, price}) => (
-        <li key={id}>
-          {`${name} ${price}`}
-          <button onClick={() => handleRemove(id)}>✕</button>
+      {items.map(o => (
+        <li key={o.id}>
+          {o.name} {o.price}
+          <button onClick={() => handleRemove(o.id)}>✕</button>
         </li>
       ))}
     </ul>

@@ -13,14 +13,14 @@ export const fetchServicesRequest =() => ({
   type: FETCH_SERVICES_REQUEST,
 });
 
-export const fetchServicesFailure = (error) => ({
+export const fetchServicesFailure = error => ({
   type: FETCH_SERVICES_FAILURE,
   payload: {
     error,
   },
 });
 
-export const fetchServicesSuccess = (items) => ({
+export const fetchServicesSuccess = items => ({
   type: FETCH_SERVICES_SUCCESS,
   payload: {
     items,
@@ -35,7 +35,7 @@ export const addServiceRequest = (name, price) => ({
   },
 })
 
-export const addServiceFailure = (message) => ({
+export const addServiceFailure = message => ({
   type: ADD_SERVICE_FAILURE,
   payload: {
     message,
@@ -54,7 +54,7 @@ export const changeServiceField = (name, value) => ({
   },
 });
 
-export const removeService = (id) => ({
+export const removeService = id => ({
   type: REMOVE_SERVICE,
   payload: {
     id,

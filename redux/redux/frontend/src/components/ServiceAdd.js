@@ -6,13 +6,13 @@ function ServiceAdd() {
 	const item = useSelector(state => state.serviceAdd);
 	const dispatch = useDispatch();
 
-	const handleChange = event => {
-		const {name, value} = event.target;
+	const handleChange = evt => {
+		const {name, value} = evt.target;
 		dispatch(changeServiceField(name, value));
 	}
 
-	const handleSubmit = event => {
-			event.preventDefault();
+	const handleSubmit = evt => {
+			evt.preventDefault();
 			dispatch(addService(item.name, item.price));
 	}
 

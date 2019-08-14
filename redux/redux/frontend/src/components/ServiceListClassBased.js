@@ -13,10 +13,10 @@ class ServiceListClassBased extends Component {
 
     return (
       <ul>
-        {items.map(({id, name, price}) => (
-          <li key={id}>
-            {`${name} ${price}`}
-            <button onClick={() => this.handleRemove(id)}>✕</button>
+        {items.map(o => (
+          <li key={o.id}>
+            {o.name} {o.price}
+            <button onClick={() => this.handleRemove(o.id)}>✕</button>
           </li>
         ))}
       </ul>
