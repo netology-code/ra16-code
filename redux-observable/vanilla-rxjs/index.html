@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src='https://unpkg.com/rxjs/bundles/rxjs.umd.min.js'></script>
+    <script>
+        const { fromEvent } = rxjs;
+        const { ajax } = rxjs.ajax;
+        const { map, filter, debounceTime, switchMap } = rxjs.operators;
+
+        const inputEl = document.createElement('input');
+        document.body.appendChild(inputEl);
+        const inputElChange$ = fromEvent(inputEl, 'input')
+        inputElChange$.pipe(
+            map(o => o.target.value),
+            filter(o => o.trim() !== ''),
+            debounceTime(100),
+            map(o => new URLSearchParams({ q: o })),
+            map(o => o.toString()),
+            switchMap(o => ajax.getJSON(`http://localhost:7070/api/search?${o}`)),
+        ).subscribe({
+            next: value => console.log('next', value),
+            error: error => console.error('error', error),
+            complete: () => console.info('complete'),
+        });
+    </script>
+</body>
+
+</html>
