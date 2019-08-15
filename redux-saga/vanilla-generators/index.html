@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function* stringGenerator() {
+            yield 'first';
+            yield 'second';
+            yield 'third';
+        }
+
+        const string = stringGenerator();
+        console.log(string);
+        console.log(string.next()); // {done: false, value: 'first'}
+        console.log(string.next()); // {done: false, value: 'second'}
+        console.log(string.next()); // {done: false, value: 'third'}
+        console.log(string.next()); // {done: true,  value: undefined}
+
+        function* randomNumberGenerator(start, stop) {
+            while (true) {
+                yield Math.floor(Math.random() * (stop - start + 1)) + start;
+            }
+        }
+        const random = randomNumberGenerator(1, 10);
+        console.log(random.next());
+        console.log(random.next());
+        console.log(random.next());
+
+        function* delegatedGenerator() {
+            yield 'first delegated';
+            yield 'second delegated';
+        }
+
+        function* delegatorGenerator() {
+            yield 'first delegator';
+            yield* delegatedGenerator();
+            yield 'second delegator';
+        }
+
+        const delegator = delegatorGenerator();
+        console.log(delegator.next().value); // first delegator
+        console.log(delegator.next().value); // first delegated
+        console.log(delegator.next().value); // second delegated
+        console.log(delegator.next().value); // second delegator
+
+        function* valueGenerator() {
+            const value = yield 'value';
+            console.warn(`value: ${value}`);
+        }
+
+        const value = valueGenerator();
+        console.log(value.next());
+        value.next(42); // в value будет 42, сработает console.warn
+
+        function* errorGenerator() {
+            try {
+                yield 'value';
+            } catch (e) {
+                console.warn(`Catched: ${e.message}`);
+            }
+        }
+
+        const error = errorGenerator();
+        error.next();
+        error.throw(new Error('something bad happened'));
+
+        async function searchRequest() {
+            const response = await fetch('http://localhost:7070/api/search?q=Re');
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return await response.json();
+        }
+
+        function* searchGenerator() {
+            while (true) {
+                try {
+                    const data = yield (searchRequest());
+                    console.info(data);
+                } catch (e) {
+                    console.warn(e.message);
+                }
+            }
+        }
+        const search = searchGenerator();
+        // первый поиск
+        search.next().value
+            .then(o => search.next(o), o => search.throw(o))
+        // второй поиск
+        search.next().value
+            .then(o => search.next(o), o => search.throw(o))
+    </script>
+</body>
+
+</html>
