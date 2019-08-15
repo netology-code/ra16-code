@@ -23,7 +23,6 @@
             filter(o => o.trim() !== ''),
             debounceTime(100),
             map(o => new URLSearchParams({ q: o })),
-            map(o => o.toString()),
             switchMap(o => ajax.getJSON(`http://localhost:7070/api/search?${o}`)),
         ).subscribe({
             next: value => console.log('next', value),
