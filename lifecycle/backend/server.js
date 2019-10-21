@@ -19,7 +19,7 @@ const currencies = [{ "value": 1, "title": "Российский рубль", "c
 
 const router = new Router();
 
-router.get('/currency', async (ctx, next) => {
+router.get('/currencies', async (ctx, next) => {
   ctx.response.body = currencies;
 });
 
