@@ -35,10 +35,10 @@ export const addServiceRequest = (name, price) => ({
   },
 })
 
-export const addServiceFailure = message => ({
+export const addServiceFailure = error => ({
   type: ADD_SERVICE_FAILURE,
   payload: {
-    message,
+    error,
   },
 });
 
